@@ -1,0 +1,27 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: 
+    mkdir hello-world-app
+    cd hello-world-app
+    git clone git@github.com:Siddharta-reddy/usecase.git
+
+  displayName: 'Creat a directory and pull code'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'siddharta02/sid'
+    repository: 'sampleimage'
+    command: 'buildAndPush'
+    Dockerfile: 'hello-world-app/Dockerfile'
+    tags: |
+      $(Build.BuildId)
