@@ -25,3 +25,34 @@ steps:
     Dockerfile: 'hello-world-app/Dockerfile'
     tags: |
       $(Build.BuildId)
+- script:
+    #!/bin/bash
+    # Variables
+    ORG_URL="dev.azure.com/2355152"
+    PROJECT_NAME="dev"
+    REPO_NAME="dev"
+    FILE_PATH="./deployment.yaml"
+    BRANCH_NAME="main"
+    NEW_IMAGE_NAME="mynewimage:latest"
+    COMMIT_MESSAGE="Updated YAML file"
+    PAT="your_personal_access_token"
+
+    # Clone the repository using PAT
+    git clone https://$PAT@${ORG_URL}/${PROJECT_NAME}/_git/${REPO_NAME}
+    cd $REPO_NAME
+
+    # Checkout the branch
+    git checkout $BRANCH_NAME
+
+    # Make changes to the YAML file
+    sed -i "s|image: .*|image: siddharta02/sid:$(Build.BuildId)|" $FILE_PATH
+
+
+    # Commit and push the changes
+    git add $FILE_PATH
+    git commit -m "$COMMIT_MESSAGE"
+    git push origin $BRANCH_NAME
+
+    # Clean up
+    cd ..
+    rm -rf $REPO_NAME
