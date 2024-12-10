@@ -23,7 +23,7 @@ steps:
     git config --global user.name 'Siddharta-reddy'
     git config --global user.email 'siddhartareddy02@gmail.com'
     git pull https://Siddharta-reddy:$(PAT)@github.com/Siddharta-reddy/usecase.git HEAD:main
-    git add deployment.yml service.yaml
+    git add deployment.yaml service.yaml
     git commit -m "Update image tag to $(Build.BuildId)"
     git push https://Siddharta-reddy:$(PAT)@github.com/Siddharta-reddy/usecase.git HEAD:main
   displayName: 'Update Deployment YAML with New Image Tag'
