@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: my-app-container
-        image: siddharta02/sid:44
+        image: siddharta02/sid:45
         ports:
         - containerPort: 80
