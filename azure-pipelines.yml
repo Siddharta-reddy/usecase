@@ -10,11 +10,14 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  imagename: 'siddharta02/sid'
 steps:
 - task: Docker@2
   displayName: Build an image
   inputs:
-    command: build
+    containerRegistry: 'dockerhub'
+    repository: $(imagename)
+    command: buildAndPush
     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
     tags: |
       $(tag)
