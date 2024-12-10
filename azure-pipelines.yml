@@ -1,0 +1,41 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          $(tag)
+    - script: 
+        sed -i 's|image: .*|image: bharath1612/usc:$(Build.BuildId)|' deployment.yaml
+        git config --global user.name 'bharathyadav161'
+        git config --global user.email 'bharathyadav9123161@gmail.com'
+        git pull https://Siddharta-reddy:$(PAT)@github.com/Siddharta-reddy/usecase.git HEAD:main
+        git add deployment.yml service.yaml
+        git commit -m "Update image tag to $(Build.BuildId)"
+        git push https://Siddharta-reddy:$(PAT)@github.com/Siddharta-reddy/usecase.git HEAD:main
+      displayName: 'Update Deployment YAML with New Image Tag'
+      env:
+        PAT: $(PAT)
+      
