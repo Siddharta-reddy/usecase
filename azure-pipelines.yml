@@ -18,7 +18,7 @@ steps:
     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
     tags: |
       $(tag)
-- script: 
+- script: |
     sed -i 's|image: .*|image: siddharta02/sid:$(Build.BuildId)|' deployment.yaml
     git config --global user.name 'Siddharta-reddy'
     git config --global user.email 'siddhartareddy02@gmail.com'
