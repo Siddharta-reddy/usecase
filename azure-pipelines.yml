@@ -21,5 +21,15 @@ steps:
     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
     tags: |
       $(tag)
-
-      
+- script: |
+    git pull https://Siddharta-reddy:$(PAT)@github.com/Siddharta-reddy/usecase.git HEAD:main
+    sed -i 's|image: .*|image: siddharta02/sid:$(Build.BuildId)|' deployment.yaml
+    git config --global user.name 'Siddharta-reddy'
+    git config --global user.email 'siddhartareddy02@gmail.com'
+    
+    git add deployment.yaml service.yaml
+    git commit -m "Update image tag to $(Build.BuildId)"
+    git push https://Siddharta-reddy:$(PAT)@github.com/Siddharta-reddy/usecase.git HEAD:main
+  displayName: 'Update Deployment YAML with New Image Tag'
+  env:
+    PAT: $(PAT)
