@@ -13,8 +13,9 @@ spec:
       labels:
         app: hello-world-app
     spec:
+      imagePullPolicy: Always
       containers:
       - name: my-app-container
-        image: siddharta02/sid:72
+        image: siddharta02/sid:latest
         ports:
         - containerPort: 80
