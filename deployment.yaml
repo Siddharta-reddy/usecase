@@ -16,6 +16,6 @@ spec:
       imagePullPolicy: Always
       containers:
       - name: my-app-container
-        image: siddharta02/sid:latest
+        image: siddharta02/sid:73
         ports:
         - containerPort: 80
