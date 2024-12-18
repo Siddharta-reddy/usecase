@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: my-app-container
-        image: siddharta02/sid:73 
+        image: siddharta02/sid:latest
         ports:
         - containerPort: 80
         imagePullPolicy: Always
